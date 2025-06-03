@@ -1,0 +1,25 @@
+import base64
+
+class SimpleEncryptionTool:
+    def __init__(self, key: str = "defaultkey"):
+        self.key = key.encode()
+
+    def encrypt(self, message: str) -> str:
+        combined = message.encode() + self.key
+        return base64.b64encode(combined).decode()
+
+    def decrypt(self, encrypted_message: str) -> str:
+        decoded = base64.b64decode(encrypted_message.encode())
+        original = decoded[:-len(self.key)]
+        return original.decode()
+
+# Example usage
+if __name__ == "__main__":
+    tool = SimpleEncryptionTool("mysecretkey")
+    original_message = "This is a secret message."
+    encrypted = tool.encrypt(original_message)
+    decrypted = tool.decrypt(encrypted)
+
+    print(f"Original: {original_message}")
+    print(f"Encrypted: {encrypted}")
+    print(f"Decrypted: {decrypted}")
