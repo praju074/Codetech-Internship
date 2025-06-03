@@ -1,0 +1,20 @@
+import hashlib
+
+def calculate_md5_from_data(data: str) -> str:
+    """Calculate MD5 hash of a string."""
+    return hashlib.md5(data.encode()).hexdigest()
+
+def check_data_integrity(data: str, expected_md5: str) -> bool:
+    """Compare actual MD5 of data with expected hash."""
+    actual_md5 = calculate_md5_from_data(data)
+    return actual_md5 == expected_md5
+
+if __name__ == "__main__":
+    print("=== In-Memory File Integrity Checker ===")
+    content = input("Enter text content: ").strip()
+    expected_md5 = input("Enter expected MD5 hash: ").strip()
+
+    if check_data_integrity(content, expected_md5):
+        print("✅ Integrity verified: Content matches the MD5 hash.")
+    else:
+        print("❌ Integrity check failed: Content does NOT match the MD5 hash.")
